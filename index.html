@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sai Hemanth Mandala — AI Systems & Data Engineering</title>
+<meta name="description" content="Sai Hemanth Mandala — Software Engineer specializing in AI systems, RAG/LLM, and real-time data engineering with Spark, Kafka & AWS." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..600&family=Schibsted+Grotesk:wght@300..600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --paper:#ecebe8;
+  --paper-2:#e4e3df;
+  --ink:#16171a;
+  --ink-dim:#41423c;
+  --ink-faint:#7a7a72;
+  --steel:#54657a;
+  --steel-deep:#3c4a5a;
+  --line:rgba(27,28,30,.14);
+  --line-soft:rgba(27,28,30,.07);
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --sans:"Schibsted Grotesk",-apple-system,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--ink);color:var(--paper)}
+a{color:inherit}
+
+/* faint atmosphere */
+.aura{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120vw 90vh at 80% -10%,rgba(107,123,140,.10),transparent 55%),
+             radial-gradient(90vw 70vh at -10% 110%,rgba(107,123,140,.08),transparent 55%)}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--steel);z-index:200}
+
+/* ---------- layout ---------- */
+.wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+section{position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--steel)}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(120%) blur(8px);background:rgba(236,235,232,.72);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:16px clamp(20px,5vw,56px);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.02em;text-decoration:none;display:flex;gap:9px;align-items:center}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--steel)}
+.nav-sys{font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.05em;display:flex;gap:7px;align-items:center}
+.nav-sys .led{width:6px;height:6px;border-radius:50%;background:var(--steel);box-shadow:0 0 0 0 rgba(107,123,140,.5);animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(107,123,140,.45)}70%,100%{box-shadow:0 0 0 7px rgba(107,123,140,0)}}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-decoration:none;color:var(--ink-dim);text-transform:uppercase;transition:color .25s}
+.nav-links a:hover{color:var(--ink)}
+@media(max-width:860px){.nav-links,.nav-sys{display:none}}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:110px;padding-bottom:64px}
+.hero .eyebrow{margin-bottom:30px}
+.hero h1{
+  font-family:var(--disp);
+  font-weight:380;
+  font-size:clamp(3rem,12.5vw,12rem);
+  line-height:.92;
+  letter-spacing:-.035em;
+}
+.hero h1 .em{font-weight:560}
+.hero h1 .steel{color:var(--steel)}
+.hero-rule{height:1px;background:var(--line);margin:clamp(30px,5vw,48px) 0 clamp(26px,4vw,38px);transform-origin:left;transform:scaleX(0);animation:grow 1.2s var(--ease) .5s forwards}
+@keyframes grow{to{transform:scaleX(1)}}
+.hero-sub{display:flex;flex-wrap:wrap;gap:26px 56px;align-items:flex-start;justify-content:space-between}
+.hero-role{font-size:clamp(1.05rem,1.9vw,1.4rem);font-weight:400;max-width:34ch;line-height:1.5;color:var(--ink)}
+.hero-role b{font-weight:600;color:var(--steel-deep)}
+.hero-meta{font-family:var(--mono);font-size:12px;color:var(--ink-dim);line-height:2;text-align:right}
+.hero-meta a{text-decoration:none;border-bottom:1px solid var(--line);transition:border-color .25s,color .25s}
+.hero-meta a:hover{color:var(--ink);border-color:var(--steel)}
+.term{font-family:var(--mono);font-size:13px;color:var(--ink-dim);margin-top:clamp(34px,5vw,54px);display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.term .p{color:var(--steel)}
+.term .t{color:var(--ink)}
+.caret{display:inline-block;width:8px;height:1.05em;background:var(--steel);vertical-align:text-bottom;animation:caret 1.1s steps(2) infinite}
+@keyframes caret{50%{opacity:0}}
+
+/* ---------- marquee (quiet) ---------- */
+.marquee{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:14px 0}
+.marquee-track{display:inline-flex;animation:scroll 46s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);padding:0 22px}
+.marquee span::after{content:"/";color:var(--steel);margin-left:44px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- section ---------- */
+.sec{padding:clamp(80px,13vh,150px) 0}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:end;margin-bottom:clamp(44px,7vw,72px)}
+.sec-head .eyebrow{grid-column:1/-1}
+.sec-title{font-family:var(--disp);font-weight:420;font-size:clamp(2rem,5.5vw,4rem);line-height:1;letter-spacing:-.03em}
+.sec-line{height:1px;background:var(--line);align-self:center}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(34px,6vw,90px);align-items:start}
+@media(max-width:880px){.about-grid{grid-template-columns:1fr}}
+.about-lead{font-family:var(--disp);font-weight:400;font-size:clamp(1.5rem,3vw,2.4rem);line-height:1.28;letter-spacing:-.02em}
+.about-lead em{font-style:normal;color:var(--steel)}
+.about-body{color:var(--ink-dim);font-size:1.02rem;line-height:1.8;margin-top:22px}
+.about-body p+p{margin-top:16px}
+.about-body b{color:var(--ink);font-weight:600}
+.stat-stack{display:flex;flex-direction:column}
+.stat{padding:22px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:16px;transition:padding-left .4s var(--ease)}
+.stat:last-child{border-bottom:1px solid var(--line)}
+.stat:hover{padding-left:10px}
+.stat .big{font-family:var(--disp);font-size:clamp(2rem,4.4vw,3rem);font-weight:420;line-height:1;letter-spacing:-.02em}
+.stat .lbl{font-family:var(--mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;text-align:right;max-width:18ch;line-height:1.5}
+
+/* ---------- experience ---------- */
+.xp{display:grid;grid-template-columns:minmax(0,.32fr) 1fr;gap:clamp(18px,4vw,56px);padding:36px 0;border-top:1px solid var(--line);transition:border-color .3s}
+.xp:last-child{border-bottom:1px solid var(--line)}
+@media(max-width:780px){.xp{grid-template-columns:1fr;gap:14px}}
+.xp-when{font-family:var(--mono);font-size:12px;color:var(--ink-dim);letter-spacing:.02em}
+.xp-when .now{display:inline-flex;align-items:center;gap:7px;margin-top:10px;color:var(--steel)}
+.xp-when .now::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--steel)}
+.xp-role{font-family:var(--disp);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:460;line-height:1.05;letter-spacing:-.02em}
+.xp-org{font-family:var(--mono);font-size:12px;color:var(--steel-deep);margin-top:8px;letter-spacing:.01em}
+.xp-list{margin-top:20px;list-style:none;display:grid;gap:11px}
+.xp-list li{position:relative;padding-left:24px;color:var(--ink-dim);font-size:1rem;line-height:1.6}
+.xp-list li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--steel)}
+.xp-list li b{color:var(--ink);font-weight:600}
+
+/* ---------- cards (proj / skill / cert) shared ---------- */
+.card{background:rgba(255,255,255,.18);border:1px solid var(--line);transition:transform .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease)}
+.card:hover{transform:translateY(-4px);border-color:var(--steel);background:rgba(255,255,255,.4)}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:780px){.proj-grid{grid-template-columns:1fr}}
+.proj{padding:clamp(26px,3.4vw,42px);min-height:320px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.proj-idx{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.12em}
+.proj-arrow{position:absolute;top:clamp(26px,3.4vw,42px);right:clamp(26px,3.4vw,42px);font-family:var(--mono);font-size:20px;color:var(--ink-faint);transition:transform .35s var(--ease),color .35s}
+.proj:hover .proj-arrow{transform:translate(4px,-4px);color:var(--steel)}
+.proj h3{font-family:var(--disp);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:440;line-height:1.04;letter-spacing:-.025em;margin:16px 0 14px}
+.proj p{color:var(--ink-dim);font-size:1rem;line-height:1.6;max-width:44ch}
+.proj-tags{margin-top:26px;display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--ink-dim);border:1px solid var(--line);padding:4px 10px;border-radius:30px;letter-spacing:.02em}
+.proj-links{margin-top:18px;display:flex;gap:18px}
+.proj-links a{font-family:var(--mono);font-size:12px;color:var(--steel-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s,color .25s}
+.proj-links a:hover{border-color:var(--steel);color:var(--ink)}
+
+/* skills */
+.skill-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:880px){.skill-cols{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.skill-cols{grid-template-columns:1fr}}
+.skill-cat{padding:26px 24px}
+.skill-cat h4{font-family:var(--mono);font-size:11px;color:var(--steel);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px;display:flex;gap:8px;align-items:baseline}
+.skill-cat h4 i{font-style:normal;color:var(--ink-faint)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--ink);padding:5px 12px;border:1px solid var(--line);border-radius:5px;transition:border-color .25s,color .25s}
+.chip:hover{border-color:var(--steel);color:var(--steel-deep)}
+
+/* certifications */
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:880px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cert-grid{grid-template-columns:1fr}}
+.cert{padding:26px 24px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit}
+.cert-mark{align-self:flex-start;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;color:var(--steel);transition:border-color .35s,color .35s}
+.cert:hover .cert-mark{border-color:var(--steel);color:var(--steel-deep)}
+.cert-tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--steel)}
+.cert-name{font-family:var(--disp);font-weight:460;font-size:1.25rem;line-height:1.1;letter-spacing:-.015em;flex:1}
+.cert-view{font-family:var(--mono);font-size:11px;color:var(--ink-dim);transition:color .3s}
+.cert:hover .cert-view{color:var(--steel)}
+
+/* publication */
+.pub{border:1px solid var(--line);padding:clamp(28px,4vw,52px);display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center;background:rgba(255,255,255,.18)}
+.pub-l{max-width:62ch}
+.pub-l .kicker{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.1em;text-transform:uppercase}
+.pub-l h3{font-family:var(--disp);font-size:clamp(1.4rem,2.6vw,2rem);font-weight:460;margin:12px 0 8px;line-height:1.2;letter-spacing:-.02em}
+.pub-l p{color:var(--ink-dim);font-size:1rem;line-height:1.6}
+
+/* hobbies (quiet) */
+.hobbies{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:12px 0}
+.hobbies-track{display:inline-flex;animation:scroll 40s linear infinite reverse}
+.hobbies span{font-family:var(--mono);font-size:12px;color:var(--ink-dim);padding:0 20px;text-transform:uppercase;letter-spacing:.06em}
+.hobbies span::after{content:"·";color:var(--steel);margin-left:40px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.02em;color:var(--paper);background:var(--ink);padding:14px 24px;border:1px solid var(--ink);border-radius:40px;text-decoration:none;transition:background .3s,color .3s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn span{transition:transform .3s var(--ease)}
+.btn:hover span{transform:translate(3px,-3px)}
+
+/* contact */
+.contact{padding:clamp(84px,15vh,170px) 0 0}
+.contact h2{font-family:var(--disp);font-weight:380;font-size:clamp(2.4rem,9vw,8rem);line-height:.96;letter-spacing:-.035em}
+.contact h2 a{color:var(--steel);text-decoration:none;transition:color .3s}
+.contact h2 a:hover{color:var(--ink)}
+.contact h2 em{font-style:normal;color:var(--steel)}
+.contact-row{margin-top:50px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px;border-top:1px solid var(--line);padding-top:32px}
+.contact-links{display:flex;flex-direction:column;gap:9px}
+.contact-links a{font-family:var(--mono);font-size:13px;color:var(--ink-dim);text-decoration:none;transition:color .25s}
+.contact-links a:hover{color:var(--steel)}
+.contact-links a b{color:var(--ink);font-weight:600}
+footer{margin-top:80px;border-top:1px solid var(--line);padding:26px 0 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer p{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.02em}
+footer .s{color:var(--steel)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}*{animation:none!important}}
+.hl-stag{opacity:0;transform:translateY(26px)}
+.loaded .hl-stag{animation:rise 1.1s var(--ease) forwards}
+.loaded .hl-stag.l1{animation-delay:.1s}.loaded .hl-stag.l2{animation-delay:.24s}.loaded .hl-stag.l3{animation-delay:.4s}.loaded .hl-stag.l4{animation-delay:.56s}
+@keyframes rise{to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="aura"></div>
+<div class="progress" id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>SHM</a>
+    <div class="nav-sys"><span class="led"></span>ONLINE · <time id="clk">--:--:--</time></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#certs">Certs</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero wrap" id="top">
+  <span class="eyebrow hl-stag l1">Software Engineer · AI Systems &amp; Data Engineering</span>
+  <h1>
+    <span class="hl-stag l2">Sai <span class="em">Hemanth</span></span><br>
+    <span class="hl-stag l3 steel">Mandala</span>
+  </h1>
+  <div class="hero-rule"></div>
+  <div class="hero-sub">
+    <p class="hero-role hl-stag l4">Building <b>RAG &amp; LLM</b> systems and high-throughput <b>data pipelines</b> — from raw streams to answers humans trust.</p>
+    <div class="hero-meta hl-stag l4">
+      Palakonda, India<br>
+      <a href="mailto:m.saihemanth1@gmail.com">m.saihemanth1@gmail.com</a><br>
+      <a href="tel:+918341739439">+91 83417 39439</a> · <a href="tel:+919160373883">+91 91603 73883</a>
+    </div>
+  </div>
+  <div class="term hl-stag l4"><span class="p">hemanth@portfolio:~$</span><span class="t" id="typed"></span><span class="caret"></span></div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Retrieval-Augmented Generation</span><span>Apache Spark</span><span>Kafka Streaming</span><span>Vector Search</span><span>Change Data Capture</span><span>LLM Pipelines</span><span>AWS</span>
+    <span>Retrieval-Augmented Generation</span><span>Apache Spark</span><span>Kafka Streaming</span><span>Vector Search</span><span>Change Data Capture</span><span>LLM Pipelines</span><span>AWS</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec wrap" id="about">
+  <div class="sec-head reveal">
+    <span class="eyebrow">01 — Profile</span>
+    <h2 class="sec-title">Profile</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p class="about-lead reveal">Software engineer with <em>1.7 years</em> turning messy data into intelligent, real-time systems.</p>
+      <div class="about-body reveal d1">
+        <p>I work where AI meets data infrastructure — designing <b>RAG/LLM applications</b> that answer from documents, and the streaming pipelines that feed them. My focus is the unglamorous engineering that makes intelligence reliable: profiling, lineage, quality checks, and throughput.</p>
+        <p>Core stack runs <b>Python, Apache Spark, Kafka, Node.js and AWS</b> — with a habit of shipping things that measurably move the needle.</p>
+      </div>
+    </div>
+    <div class="stat-stack reveal d2">
+      <div class="stat"><span class="big">~50%</span><span class="lbl">Faster data-profiling execution</span></div>
+      <div class="stat"><span class="big">30–40%</span><span class="lbl">Less data-investigation time</span></div>
+      <div class="stat"><span class="big">1.7y</span><span class="lbl">Production engineering</span></div>
+      <div class="stat"><span class="big">∞</span><span class="lbl">Pipelines kept flowing</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="sec wrap" id="work">
+  <div class="sec-head reveal">
+    <span class="eyebrow">02 — Experience</span>
+    <h2 class="sec-title">Experience</h2>
+    <span class="sec-line"></span>
+  </div>
+
+  <article class="xp reveal">
+    <div class="xp-when">Jan 2024 — Present<span class="now">Remote</span></div>
+    <div>
+      <h3 class="xp-role">Software Engineer</h3>
+      <div class="xp-org">DHIRA — Digital Human Interface &amp; Robotic Applications</div>
+      <ul class="xp-list">
+        <li>Built a context-aware <b>RAG Q&amp;A system</b> over textbooks using Azure Translation, Chroma DB &amp; GPT-4o for enriched prompts.</li>
+        <li>Refactored data-profiling logic, lifting execution speed <b>~50%</b>.</li>
+        <li>Shipped an AI <b>resume-to-JD matching</b> tool with Azure Document AI + GPT-4o and a Gradio match-score UI.</li>
+        <li>Automated <b>media generation</b> from PDF extracts — image scenes via Azure OpenAI &amp; DALL·E, video via Luma AI.</li>
+        <li>Built real-time <b>DB replication</b>: MariaDB → PostgreSQL with Debezium &amp; Kafka, processed via Spark Streaming.</li>
+        <li>Built a <b>Delta Lake</b> pipeline querying delta tables across Spark, Hive &amp; HDFS.</li>
+        <li>Wrote <b>ETL</b> transformations — column splitting, date rearrangement, Box-Cox refinement &amp; quality checks.</li>
+        <li>Scripted entity registration in <b>Apache Atlas</b>, cutting investigation time <b>~30–40%</b>.</li>
+        <li>Enhanced an <b>NLP-to-SQL</b> workflow so non-technical users query databases directly.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="xp reveal">
+    <div class="xp-when">Jun 2023 — Sep 2023<span class="now">Remote</span></div>
+    <div>
+      <h3 class="xp-role">Data Science &amp; ML Intern</h3>
+      <div class="xp-org">Gilbert Research Centre</div>
+      <ul class="xp-list">
+        <li>Applied ML techniques incl. <b>linear regression</b> inside a research team.</li>
+        <li>Handled <b>preprocessing, feature engineering &amp; model testing</b>; exposure to medical instruments.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="xp reveal">
+    <div class="xp-when">Aug 2019 — Jul 2023<span class="now">Tekkali</span></div>
+    <div>
+      <h3 class="xp-role">B.Tech — Computer Science</h3>
+      <div class="xp-org">Aditya Institute of Technology and Management · CGPA 7.78 / 10</div>
+    </div>
+  </article>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec wrap" id="projects">
+  <div class="sec-head reveal">
+    <span class="eyebrow">03 — Selected Builds</span>
+    <h2 class="sec-title">Selected Builds</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="proj-grid">
+    <article class="proj card reveal">
+      <span class="proj-arrow">↗</span>
+      <div><span class="proj-idx">PRJ_01</span>
+        <h3>Hemanthify</h3>
+        <p>A social platform with real-time chat, post sharing, likes, comments and follows — Socket.io chat engine, Google OAuth 2.0 login &amp; forgot-password flow, deployed on AWS EC2 (t2.micro, Ubuntu).</p>
+      </div>
+      <div>
+        <div class="proj-tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Socket.io</span><span class="tag">OAuth 2.0</span><span class="tag">AWS EC2</span></div>
+        <div class="proj-links"><a href="http://hemanthify.in/" target="_blank" rel="noopener">Website ↗</a><a href="https://github.com/HemanthStarFullStack/Hemanthify-app" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+    </article>
+
+    <article class="proj card reveal d1">
+      <span class="proj-arrow">↗</span>
+      <div><span class="proj-idx">PRJ_02</span>
+        <h3>RRR — Reviews &amp; Ratings</h3>
+        <p>A restaurant platform: owners manage menus &amp; profiles, reviewers post star ratings and item-level reviews. Google OAuth 2.0, deployed on AWS EC2. Published as a peer case study.</p>
+      </div>
+      <div>
+        <div class="proj-tags"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">OAuth 2.0</span><span class="tag">Published</span></div>
+        <div class="proj-links"><a href="https://rrr.net.in/" target="_blank" rel="noopener">Website ↗</a><a href="https://github.com/TeamProjectWD/RestaurantReviewAndRatingApplication" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="sec wrap" id="stack">
+  <div class="sec-head reveal">
+    <span class="eyebrow">04 — The Stack</span>
+    <h2 class="sec-title">The Stack</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="skill-cols reveal">
+    <div class="skill-cat card">
+      <h4>AI / ML <i>// reasoning</i></h4>
+      <div class="chips"><span class="chip">RAG</span><span class="chip">LLMs</span><span class="chip">GPT-4o</span><span class="chip">Prompt Engineering</span><span class="chip">Chroma DB</span><span class="chip">Vector Search</span><span class="chip">Azure Document AI</span><span class="chip">DALL·E</span><span class="chip">Luma AI</span><span class="chip">NLP</span><span class="chip">Gradio</span></div>
+    </div>
+    <div class="skill-cat card">
+      <h4>Data Engineering <i>// throughput</i></h4>
+      <div class="chips"><span class="chip">Apache Spark</span><span class="chip">PySpark</span><span class="chip">Kafka</span><span class="chip">Spark Streaming</span><span class="chip">CDC</span><span class="chip">Debezium</span><span class="chip">Hive</span><span class="chip">Delta Lake</span><span class="chip">HDFS</span></div>
+    </div>
+    <div class="skill-cat card">
+      <h4>Languages <i>// foundations</i></h4>
+      <div class="chips"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C</span><span class="chip">JavaScript</span><span class="chip">Shell</span></div>
+    </div>
+    <div class="skill-cat card">
+      <h4>Backend &amp; Web <i>// services</i></h4>
+      <div class="chips"><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">REST APIs</span><span class="chip">Socket.io</span><span class="chip">EJS</span><span class="chip">jQuery</span><span class="chip">Ajax</span><span class="chip">SASS</span><span class="chip">React</span></div>
+    </div>
+    <div class="skill-cat card">
+      <h4>Data Quality &amp; Governance <i>// trust</i></h4>
+      <div class="chips"><span class="chip">ETL</span><span class="chip">Data Profiling</span><span class="chip">Quality Checks</span><span class="chip">Apache Atlas</span><span class="chip">Data Lineage</span></div>
+    </div>
+    <div class="skill-cat card">
+      <h4>Databases &amp; DevOps <i>// ground</i></h4>
+      <div class="chips"><span class="chip">MongoDB</span><span class="chip">PostgreSQL</span><span class="chip">MariaDB</span><span class="chip">Linux</span><span class="chip">Git</span><span class="chip">Nginx</span><span class="chip">AWS EC2</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec wrap" id="certs">
+  <div class="sec-head reveal">
+    <span class="eyebrow">05 — Certifications</span>
+    <h2 class="sec-title">Certifications</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="cert-grid">
+    <a class="cert card reveal" href="assets/certs/frontend.pdf" target="_blank" rel="noopener">
+      <span class="cert-mark">▦</span>
+      <span class="cert-tag">Coding Ninjas</span>
+      <span class="cert-name">Front End — Full Stack Web Development</span>
+      <span class="cert-view">View certificate ↗</span>
+    </a>
+    <a class="cert card reveal d1" href="assets/certs/backend.pdf" target="_blank" rel="noopener">
+      <span class="cert-mark">◧</span>
+      <span class="cert-tag">Coding Ninjas</span>
+      <span class="cert-name">Back End — Full Stack in Node.js</span>
+      <span class="cert-view">View certificate ↗</span>
+    </a>
+    <a class="cert card reveal d2" href="assets/certs/java-dsa.pdf" target="_blank" rel="noopener">
+      <span class="cert-mark">{ }</span>
+      <span class="cert-tag">Coding Ninjas</span>
+      <span class="cert-name">Introduction to Java</span>
+      <span class="cert-view">View certificate ↗</span>
+    </a>
+    <a class="cert card reveal" href="assets/certs/python-dsa.pdf" target="_blank" rel="noopener">
+      <span class="cert-mark">&gt;_</span>
+      <span class="cert-tag">Coding Ninjas</span>
+      <span class="cert-name">Data Structures &amp; Algorithms in Python</span>
+      <span class="cert-view">View certificate ↗</span>
+    </a>
+    <a class="cert card reveal d1" href="assets/certs/letter-of-recommendation.pdf" target="_blank" rel="noopener">
+      <span class="cert-mark">✶</span>
+      <span class="cert-tag">Recognition</span>
+      <span class="cert-name">Letter of Recommendation</span>
+      <span class="cert-view">View letter ↗</span>
+    </a>
+    <a class="cert card reveal d2" href="http://www.ijracse.com/issues/previous-issues/2023-2/march/" target="_blank" rel="noopener">
+      <span class="cert-mark">¶</span>
+      <span class="cert-tag">IJRACSE · Research</span>
+      <span class="cert-name">Published Case Study</span>
+      <span class="cert-view">Read publication ↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section class="sec wrap" id="pub">
+  <div class="sec-head reveal">
+    <span class="eyebrow">06 — Published</span>
+    <h2 class="sec-title">Published</h2>
+    <span class="sec-line"></span>
+  </div>
+  <div class="pub reveal">
+    <div class="pub-l">
+      <span class="kicker">IJRACSE · Case Study</span>
+      <h3>Restaurant Reviews &amp; Ratings — System Design &amp; Results</h3>
+      <p>A peer case study covering the RRR platform's architecture, step-by-step implementation and measured outcomes — documentation, technical depth and problem-solving in one record.</p>
+    </div>
+    <a href="http://www.ijracse.com/issues/previous-issues/2023-2/march/" target="_blank" rel="noopener" class="btn">Read Publication <span>↗</span></a>
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<div class="hobbies">
+  <div class="hobbies-track">
+    <span>Chess</span><span>Rubik's Cube</span><span>Origami</span><span>Photoshop</span><span>Tech-Exploration</span>
+    <span>Chess</span><span>Rubik's Cube</span><span>Origami</span><span>Photoshop</span><span>Tech-Exploration</span>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="sec wrap contact" id="contact">
+  <span class="eyebrow reveal" style="display:block;margin-bottom:24px">07 — Let's build</span>
+  <h2 class="reveal">Got data that needs <em>intelligence?</em><br><a href="mailto:m.saihemanth1@gmail.com">Let's talk →</a></h2>
+  <div class="contact-row">
+    <a href="mailto:m.saihemanth1@gmail.com" class="btn reveal">m.saihemanth1@gmail.com <span>↗</span></a>
+    <div class="contact-links reveal d1">
+      <a href="https://github.com/HemanthStarFullStack" target="_blank" rel="noopener"><b>GitHub</b> — /HemanthStarFullStack ↗</a>
+      <a href="https://www.linkedin.com/in/sai-hemanth-mandala-8b1a591a8/" target="_blank" rel="noopener"><b>LinkedIn</b> — /sai-hemanth-mandala ↗</a>
+      <a href="tel:+918341739439"><b>Phone</b> — +91 83417 39439 ↗</a>
+      <a href="tel:+919160373883"><b>Phone</b> — +91 91603 73883 ↗</a>
+    </div>
+  </div>
+  <footer>
+    <p>© 2026 Sai Hemanth Mandala — Palakonda, India</p>
+    <p>BUILD <span class="s">2026.06.14</span> · v3.0 · UPTIME <span class="s" id="uptime">00:00:00</span></p>
+  </footer>
+</section>
+
+<script>
+/* load */
+window.addEventListener('load',()=>document.body.classList.add('loaded'));
+document.body.classList.add('loaded');
+
+/* scroll reveal */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* scroll progress */
+(function(){
+  const bar=document.getElementById('progress');
+  const upd=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);bar.style.width=(p*100)+'%';};
+  upd();addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);
+})();
+
+/* live clock */
+(function(){
+  const c=document.getElementById('clk');if(!c)return;
+  const t=()=>c.textContent=new Date().toLocaleTimeString('en-GB',{hour12:false});
+  t();setInterval(t,1000);
+})();
+
+/* uptime */
+(function(){
+  const u=document.getElementById('uptime');if(!u)return;
+  const t0=Date.now();
+  setInterval(()=>{let s=Math.floor((Date.now()-t0)/1000);
+    const h=String(Math.floor(s/3600)).padStart(2,'0');s%=3600;
+    const m=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+    u.textContent=`${h}:${m}:${ss}`;},1000);
+})();
+
+/* hero typed line */
+(function(){
+  const el=document.getElementById('typed');if(!el)return;
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=' whoami --role "AI & Data Engineer"';return;}
+  const cmds=[' whoami --role "AI & Data Engineer"',' cat skills.json | grep -i "RAG"',' ssh hemanth@pipelines --stream'];
+  let ci=0,chi=0,del=false;
+  (function type(){
+    const cur=cmds[ci];
+    el.textContent=del?cur.slice(0,chi--):cur.slice(0,chi++);
+    let d=del?32:60;
+    if(!del&&chi===cur.length+1){d=2400;del=true;chi=cur.length;}
+    else if(del&&chi<0){del=false;chi=0;ci=(ci+1)%cmds.length;d=460;}
+    setTimeout(type,d);
+  })();
+})();
+</script>
+</body>
+</html>
