@@ -225,6 +225,16 @@ footer .s{color:var(--steel)}
   .hero-sub{gap:24px 32px}
 }
 
+/* stats: once the about-grid stacks, the right-aligned label leaves a huge
+   void under space-between — switch to a clean 2x2 number-over-label matrix */
+@media(max-width:880px){
+  .stat-stack{display:grid;grid-template-columns:repeat(2,1fr);column-gap:clamp(18px,5vw,44px);border-top:1px solid var(--line);margin-top:6px}
+  .stat{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:8px;padding:20px 0;border-top:none;border-bottom:1px solid var(--line)}
+  .stat:hover{padding-left:0}
+  .stat .big{font-size:clamp(2rem,6vw,2.8rem)}
+  .stat .lbl{text-align:left;max-width:24ch}
+}
+
 /* phone */
 @media(max-width:600px){
   .wrap{padding:0 22px}
@@ -245,8 +255,8 @@ footer .s{color:var(--steel)}
 
   .about-body{font-size:.98rem}
   .stat{padding:18px 0}
-  .stat .big{font-size:clamp(1.9rem,9vw,2.4rem)}
-  .stat .lbl{max-width:15ch}
+  .stat .big{font-size:clamp(1.9rem,8vw,2.4rem)}
+  .stat .lbl{max-width:20ch;font-size:10.5px}
 
   .xp{padding:26px 0}
 
