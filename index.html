@@ -103,7 +103,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(120
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 /* ---------- section ---------- */
-.sec{padding:clamp(80px,13vh,150px) 0}
+.sec{padding-block:clamp(80px,13vh,150px)}
 .sec-head{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:end;margin-bottom:clamp(44px,7vw,72px)}
 .sec-head .eyebrow{grid-column:1/-1}
 .sec-title{font-family:var(--disp);font-weight:420;font-size:clamp(2rem,5.5vw,4rem);line-height:1;letter-spacing:-.03em}
@@ -200,7 +200,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:saturate(120
 .btn:hover span{transform:translate(3px,-3px)}
 
 /* contact */
-.contact{padding:clamp(84px,15vh,170px) 0 0}
+.contact{padding-top:clamp(84px,15vh,170px)}
 .contact h2{font-family:var(--disp);font-weight:380;font-size:clamp(2.4rem,9vw,8rem);line-height:.96;letter-spacing:-.035em}
 .contact h2 a{color:var(--steel);text-decoration:none;transition:color .3s}
 .contact h2 a:hover{color:var(--ink)}
@@ -220,7 +220,7 @@ footer .s{color:var(--steel)}
 
 /* tablet */
 @media(max-width:780px){
-  .sec{padding:clamp(64px,10vh,96px) 0}
+  .sec{padding-block:clamp(64px,10vh,96px)}
   .sec-head{margin-bottom:clamp(34px,6vw,48px)}
   .hero-sub{gap:24px 32px}
 }
@@ -249,7 +249,7 @@ footer .s{color:var(--steel)}
   .hero-meta{text-align:left;line-height:1.95}
   .term{font-size:11.5px;margin-top:28px}
 
-  .sec{padding:60px 0}
+  .sec{padding-block:60px}
   .sec-head{margin-bottom:32px}
   .sec-title{font-size:clamp(1.85rem,8.5vw,2.6rem)}
 
